@@ -117,6 +117,7 @@ class TestsController {
 	}
 	
 	def testListPersons = {
-		render (view:'persons-list', model:[label:params.testId, description:params.testDescription, persons:Person.list(), personsTotal: Person.count()]);
+		//params.max = 2;
+		render (view:'persons-list', model:[label:params.testId, description:params.testDescription, persons:Person.list(params), personsTotal: Person.count()]);
 	}
 }
