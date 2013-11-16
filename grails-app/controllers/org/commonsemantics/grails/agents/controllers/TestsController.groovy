@@ -23,6 +23,7 @@ package org.commonsemantics.grails.agents.controllers
 import org.commonsemantics.grails.agents.commands.PersonCreateCommand
 import org.commonsemantics.grails.agents.commands.PersonEditCommand
 import org.commonsemantics.grails.agents.model.Person
+import org.commonsemantics.grails.agents.model.Software
 import org.commonsemantics.grails.agents.utils.AgentsUtils
 
 /**
@@ -34,13 +35,6 @@ class TestsController {
 	
 	def tests = {
 		render (view:'tests')
-	}
-	
-	private def getPerson(def id) {
-		def person;
-		if(id==null)  person=Person.list()[0];
-		else person = Person.findById(id);
-		person
 	}
 	
 	def testShowPerson = {
@@ -119,5 +113,25 @@ class TestsController {
 	def testListPersons = {
 		//params.max = 2;
 		render (view:'persons-list', model:[label:params.testId, description:params.testDescription, persons:Person.list(params), personsTotal: Person.count()]);
+	}
+	
+	def testShowSoftware = {
+		def software = getSoftware(params.id);
+		render (view:'software-show', model:[label:params.testId, description:params.testDescription, software:software]);
+	}
+	
+	
+	private def getPerson(def id) {
+		def person;
+		if(id==null)  person=Person.list()[0];
+		else person = Person.findById(id);
+		person
+	}
+	
+	private def getSoftware(def id) {
+		def software;
+		if(id==null)  software=Software.list()[0];
+		else software = Software.findById(id);
+		software
 	}
 }

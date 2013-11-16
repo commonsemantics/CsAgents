@@ -46,7 +46,14 @@
 						action:'testListPersons', 
 						testId: '04', 
 						testDescription: 'List persons',
-						passed: 'false']" />		
+						passed: 'true']" />		
+				
+				<g:render plugin="cs-agents" template="/tests/testEntry" 
+					model="[
+						action:'testShowSoftware', 
+						testId: '05', 
+						testDescription: 'Software show',
+						passed: 'false']" />
 				
 			</table>	
 		</div>
