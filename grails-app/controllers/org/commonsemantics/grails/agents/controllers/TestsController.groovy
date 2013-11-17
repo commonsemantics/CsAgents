@@ -114,7 +114,8 @@ class TestsController {
 	
 	def testListPersons = {
 		//params.max = 2;
-		render (view:'persons-list', model:[label:params.testId, description:params.testDescription, persons:Person.list(params), personsTotal: Person.count()]);
+		render (view:'persons-list', model:[label:params.testId, description:params.testDescription, persons:Person.list(params), personsTotal: Person.count(), 
+			max: params.max, offset: params.offset, controller:'tests', action: 'testListPersons']);
 	}
 	
 	def testShowSoftware = {
@@ -195,6 +196,7 @@ class TestsController {
 	
 	def testListSoftware = {
 		//params.max = 1;
-		render (view:'software-list', model:[label:params.testId, description:params.testDescription, software:Software.list(params), softwareTotal: Software.count()]);
+		render (view:'software-list', model:[label:params.testId, description:params.testDescription, software:Software.list(params), softwareTotal: Software.count(), 
+			max: params.max, offset: params.offset, controller:'tests', action: 'testListSoftware']);
 	}
 }

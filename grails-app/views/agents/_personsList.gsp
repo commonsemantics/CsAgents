@@ -62,7 +62,7 @@
 		</tbody>
 	</table>
 	<div class="paginateButtons">
-   		<g:paginate total="${personsTotal}"/> 
+   		<g:paginate total="${personsTotal}" controller="${controller}" action="${action}"/> 
 	</div>
 </div>
 </div>

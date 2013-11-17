@@ -42,7 +42,7 @@
 		</tbody>
 	</table>
 	<div class="paginateButtons">
-   		<g:paginate total="${softwareTotal}"/> 
+   		<g:paginate total="${softwareTotal}" controller="${controller}" action="${action}"/> 
 	</div>
 </div>
 </div>
