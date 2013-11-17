@@ -4,7 +4,7 @@
 <table>
 	<tbody>
 		<g:if test="${grailsApplication.config.org.commonsemantics.grails.persons.model.field.title!='hide'}">			
-			<g:render plugin="cs-user" template="/agents/uPropertyEntry" model="[
+			<g:render plugin="cs-agents" template="/agents/uPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.title',
 				messageDefault:'Title',
 				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'title'),

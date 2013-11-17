@@ -12,19 +12,18 @@ messageCode, messageDefault, mandatory, variable, value, caption
 		<g:if test="${bean!=null}">
 			<g:textField name="${variable}" style="width: 276px;"
 				value="${value}"  class="${hasErrors(bean: bean, field: variable, 'csc-field-error')}"/>
-		</g:if>
-		<%-- 
+		</g:if> 
+		<%-- for instance creation --%>
 		<g:else>
 			<g:textField name="${variable}" style="width: 276px;"
-				class="${hasErrors(bean: person, field: variable, 'csc-field-error')}"/>
+				class="${hasErrors(bean: bean, field: variable, 'csc-field-error')}"/>
 		</g:else>
-		--%>
 	</td>
 	<td valign="top" class="caption">
 		${caption}	
     </td>
 </tr>
-<g:if test="${person?.errors?.hasFieldErrors(variable)}">
+<g:if test="${bean?.errors?.hasFieldErrors(variable)}">
 	<tr>
 		<td></td>
 		<td colspan="2" class="csc-error-message"><g:renderErrors bean="${bean}" field="${variable}" /></td>

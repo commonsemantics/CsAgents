@@ -53,7 +53,28 @@
 						action:'testShowSoftware', 
 						testId: '05', 
 						testDescription: 'Software show',
-						passed: 'false']" />
+						passed: 'true']" />
+						
+				<g:render plugin="cs-agents" template="/tests/testEntry" 
+					model="[
+						action:'testEditSoftware', 
+						testId: '06', 
+						testDescription: 'Software edit',
+						passed: 'true']" />
+						
+				<g:render plugin="cs-agents" template="/tests/testEntry" 
+					model="[
+						action:'testCreateSoftware', 
+						testId: '07', 
+						testDescription: 'Software create',
+						passed: 'true']" />
+						
+				<g:render plugin="cs-agents" template="/tests/testEntry" 
+					model="[
+						action:'testListSoftware', 
+						testId: '08', 
+						testDescription: 'List software',
+						passed: 'true']" />
 				
 			</table>	
 		</div>

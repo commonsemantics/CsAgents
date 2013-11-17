@@ -22,6 +22,8 @@ package org.commonsemantics.grails.agents.controllers
 
 import org.commonsemantics.grails.agents.commands.PersonCreateCommand
 import org.commonsemantics.grails.agents.commands.PersonEditCommand
+import org.commonsemantics.grails.agents.commands.SoftwareCreateCommand
+import org.commonsemantics.grails.agents.commands.SoftwareEditCommand
 import org.commonsemantics.grails.agents.model.Person
 import org.commonsemantics.grails.agents.model.Software
 import org.commonsemantics.grails.agents.utils.AgentsUtils
@@ -120,6 +122,35 @@ class TestsController {
 		render (view:'software-show', model:[label:params.testId, description:params.testDescription, software:software]);
 	}
 	
+	def testEditSoftware = {
+		def software = getSoftware(params.id);
+		render (view:'software-edit', model:[label:params.testId, description:params.testDescription, software:software]);
+	}
+	
+	def testUpdateSoftware = { SoftwareEditCommand cmd ->
+		def validationFailed = AgentsUtils.validateSoftware(grailsApplication, cmd);
+		if (validationFailed) {
+			println 'problems ' + cmd.errors;
+		} else {
+			def software = Software.findById(params.id);
+			println software
+			if(software!=null) {
+				software.ver = params.ver;
+				software.name = params.name;
+				software.displayName = params.displayName;
+				software.description = params.description;
+	
+				render (view:'software-show', model:[label:params.testId, description:params.testDescription, software:software]);
+				return;
+			}
+		}
+		render (view:'software-edit', model:[label:params.testId, description:params.testDescription, software:cmd]);
+	}
+	
+	def testCreateSoftware = {
+		render (view:'software-create', model:[label:params.testId, description:params.testDescription]);
+	}
+	
 	
 	private def getPerson(def id) {
 		def person;
@@ -133,5 +164,37 @@ class TestsController {
 		if(id==null)  software=Software.list()[0];
 		else software = Software.findById(id);
 		software
+	}
+	
+	def testSaveSoftware = {SoftwareCreateCommand cmd ->
+		println 'createSoftware'
+
+		// Validate against custom rules
+		def validationFailed = AgentsUtils.validateSoftware(grailsApplication, cmd);
+		if (validationFailed) {
+			println 'problems ' + cmd.errors;
+			render (view:'software-create', model:[label:params.testId, description:params.testDescription, person:cmd]);
+		} else {
+			def software = new Software();
+			software.ver = params.ver;
+			software.name = params.name;
+			software.description = params.description;
+			software.displayName = params.displayName;
+			
+			if(!software.save(flush: true)) {
+				println 'problems ' + software.errors;
+				
+				render (view:'software-create', model:[label:params.testId, description:params.testDescription, software:software]);
+				return
+			} else {
+				render (view:'software-show', model:[label:params.testId, description:params.testDescription, software:software]);
+				return;
+			}
+		}
+	}
+	
+	def testListSoftware = {
+		//params.max = 1;
+		render (view:'software-list', model:[label:params.testId, description:params.testDescription, software:Software.list(params), softwareTotal: Software.count()]);
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013  Common Semantics (commonsemantics.org)
+ * Copyright 2013 Common Semantics (commonsemantics.org)
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,34 +18,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.commonsemantics.grails.agents.model
+package org.commonsemantics.grails.agents.commands
+
+import grails.validation.Validateable
+
+import org.commonsemantics.grails.agents.model.Software
 
 
 /**
- * @author Paolo Ciccarese <paolo.ciccarese@gmail.com>
- */
-class Software extends Agent {
-	
-	protected static final int DESCRIPTION_MAX_SIZE = 1024;
-	
+* Object command for Person validation and creation.
+*
+* @author Paolo Ciccarese <paolo.ciccarese@gmail.com>
+*/
+@Validateable
+class SoftwareEditCommand {
+
+	String id
 	String ver;
 	String name;
+	String displayName;
 	String description;
-
-	Date dateCreated, lastUpdated
-		
-	static mandatory = ['displayName']
 	
 	static constraints = {
-		id maxSize: 36
-		
-		ver (nullable:true, blank:true, maxSize:NAME_MAX_SIZE)
-		name (nullable:false, blank: false, maxSize:NAME_MAX_SIZE)	
-		displayName (nullable: true, blank: true, maxSize:NAME_MAX_SIZE)
-		description (nullable:true, blank:true, maxSize:DESCRIPTION_MAX_SIZE)
-	}
-	
-	static mapping = {
-		id generator:'uuid', sqlType: "varchar(36)"
+		importFrom Software
 	}
 }

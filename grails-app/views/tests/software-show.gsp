@@ -10,7 +10,7 @@
 		<div class="csc-main">
 			<h1>${grailsApplication.metadata['app.name']}.${label} ${description}</h1>
 					
-			<g:render plugin="cs-users" template="/tests/configurationDetails" />
+			<g:render plugin="cs-agents" template="/tests/softwareConfigurationDetails" />
 			
 			<h3>${description} (lang=<%=RequestContextUtils.getLocale(request).language %>)*</h3>
 			<p>
@@ -27,7 +27,7 @@
 				<g:hiddenField name="testDescription" value="After ${description}" /> 
 				
 				<div class="csc-lens-container">
-					<g:render plugin="cs-users" template="/agents/softwareShow" />
+					<g:render plugin="cs-agents" template="/agents/softwareShow" />
 				</div>	
 				
 				<br/>

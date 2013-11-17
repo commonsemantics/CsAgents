@@ -12,7 +12,7 @@ Stylesheet
 	<table>
 		<tbody>
 			<g:if test="${grailsApplication.config.org.commonsemantics.grails.persons.model.field.title!='hide'}">
-				<g:render plugin="cs-user" template="/agents/uPropertyEntry" model="[
+				<g:render plugin="cs-agents" template="/agents/uPropertyEntry" model="[
 					messageCode:'org.commonsemantics.grails.persons.model.field.title',
 					messageDefault:'Title',
 					mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'title'),
@@ -23,7 +23,7 @@ Stylesheet
 				]" />
 			</g:if>
 			<g:if test="${grailsApplication.config.org.commonsemantics.grails.persons.model.field.firstName!='hide'}">
-				<g:render plugin="cs-user" template="/agents/uPropertyEntry" model="[
+				<g:render plugin="cs-agents" template="/agents/uPropertyEntry" model="[
 					messageCode:'org.commonsemantics.grails.persons.model.field.firstName',
 					messageDefault:'First name',
 					mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'firstName'),
@@ -34,7 +34,7 @@ Stylesheet
 				]" />
 			</g:if>
 			<g:if test="${grailsApplication.config.org.commonsemantics.grails.persons.model.field.middleName!='hide'}">
-				<g:render plugin="cs-user" template="/agents/uPropertyEntry" model="[
+				<g:render plugin="cs-agents" template="/agents/uPropertyEntry" model="[
 					messageCode:'org.commonsemantics.grails.persons.model.field.middleName',
 					messageDefault:'Middle name',
 					mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'middleName'),
@@ -45,7 +45,7 @@ Stylesheet
 				]" />
 			</g:if>
 			<g:if test="${grailsApplication.config.org.commonsemantics.grails.persons.model.field.lastName!='hide'}">				
-				<g:render plugin="cs-user" template="/agents/uPropertyEntry" model="[
+				<g:render plugin="cs-agents" template="/agents/uPropertyEntry" model="[
 					messageCode:'org.commonsemantics.grails.persons.model.field.lastName',
 					messageDefault:'Last name',
 					mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'lastName'),
@@ -55,7 +55,7 @@ Stylesheet
 					caption: '(max 255 ' +  g.message(code: 'org.commonsemantics.grails.general.chars',default:'chars') + ')'
 				]" />
 			</g:if>			
-			<g:render plugin="cs-user" template="/agents/uPropertyEntry" model="[
+			<g:render plugin="cs-agents" template="/agents/uPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.displayName',
 				messageDefault:'Display name',
 				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'displayName'),
@@ -64,7 +64,7 @@ Stylesheet
 				value: person?.displayName,
 				caption: '(max 255 ' +  g.message(code: 'org.commonsemantics.grails.general.chars',default:'chars') + ')'
 			]" />
-			<g:render plugin="cs-user" template="/agents/uPropertyEntry" model="[
+			<g:render plugin="cs-agents" template="/agents/uPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.email',
 				messageDefault:'Email',
 				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'email'),
@@ -74,7 +74,7 @@ Stylesheet
 				caption: '(valid email)'
 			]" />
 			<g:if test="${grailsApplication.config.org.commonsemantics.grails.persons.model.field.affiliation!='hide'}">
-				<g:render plugin="cs-user" template="/agents/uPropertyEntry" model="[
+				<g:render plugin="cs-agents" template="/agents/uPropertyEntry" model="[
 					messageCode:'org.commonsemantics.grails.persons.model.field.affiliation',
 					messageDefault:'Affiliation',
 					mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'affiliation'),

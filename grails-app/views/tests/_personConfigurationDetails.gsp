@@ -7,21 +7,30 @@
 &nbsp;org.commonsemantics.grails.persons.model.fields.mandatory = ${AgentsUtils.getPersonMandatoryFields(grailsApplication)}<br/><br/>
 
 <h3>Flexible Fields </h3>
-&nbsp;${Person.optional}<br/><br/>
-
-<%-- Alternative A --%>
-<table class="tabletest">
-	<tr align="left">
-		<th>Field</th><th>Value</th><th>Configuration entry</th>
-	</tr>
-	<g:each in="${Person.optional}" var="option">
-		<tr>	
-			<td>${option}</td>
-			<td>${grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}</td>
-			<td> org.commonsemantics.grails.persons.model.field.${option}=${grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}</td>
+<g:if test="${AgentsUtils.isStaticPersonPropertyExisting('optional')!=null}">
+	&nbsp;${Person.optional}<br/><br/>
+	
+	<%-- Alternative A --%>
+	<table class="tabletest">
+		<tr align="left">
+			<th>Field</th><th>Value</th><th>Configuration entry</th>
 		</tr>
-	</g:each>
-</table>
+		<g:each in="${Person.optional}" var="option">
+			<tr>	
+				<td>${option}</td>
+				<td>${grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}</td>
+				<td> org.commonsemantics.grails.persons.model.field.${option}=${grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}</td>
+			</tr>
+		</g:each>
+	</table>
+</g:if>
+<g:else>
+	<table class="tabletest">
+		<tr align="left">
+			<td>&nbsp;No optional fields defined</td>
+		</tr>
+	</table>
+</g:else>
 
 <%-- Alternative B --%>
 <%-- 
