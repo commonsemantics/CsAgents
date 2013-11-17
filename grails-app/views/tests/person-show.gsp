@@ -35,6 +35,9 @@
 					<span class="button">
 						<g:actionSubmit class="save" action="testEditPerson" value="${message(code: 'org.commonsemantics.grails.users.profile.submit', default: 'Edit Profile')}" />
 					</span>
+					<span class="button">
+						<g:actionSubmit class="save" action="testListPersons" value="${message(code: 'org.commonsemantics.grails.users.profile.submit', default: 'List Profiles')}" />
+					</span>
 				</div>
 			</g:form>
 		</div>

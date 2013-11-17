@@ -45,35 +45,42 @@
 					model="[
 						action:'testListPersons', 
 						testId: '04', 
-						testDescription: 'List persons',
+						testDescription: 'Persons list',
 						passed: 'true']" />		
 				
 				<g:render plugin="cs-agents" template="/tests/testEntry" 
 					model="[
 						action:'testShowSoftware', 
-						testId: '05', 
+						testId: '10', 
 						testDescription: 'Software show',
 						passed: 'true']" />
 						
 				<g:render plugin="cs-agents" template="/tests/testEntry" 
 					model="[
+						action:'testShowSoftwareLensNoSoftware', 
+						testId: '11', 
+						testDescription: 'Software show (no software defined)',
+						passed: 'true']" />		
+						
+				<g:render plugin="cs-agents" template="/tests/testEntry" 
+					model="[
 						action:'testEditSoftware', 
-						testId: '06', 
+						testId: '12', 
 						testDescription: 'Software edit',
 						passed: 'true']" />
 						
 				<g:render plugin="cs-agents" template="/tests/testEntry" 
 					model="[
 						action:'testCreateSoftware', 
-						testId: '07', 
+						testId: '13', 
 						testDescription: 'Software create',
 						passed: 'true']" />
 						
 				<g:render plugin="cs-agents" template="/tests/testEntry" 
 					model="[
 						action:'testListSoftware', 
-						testId: '08', 
-						testDescription: 'List software',
+						testId: '14', 
+						testDescription: 'Software list',
 						passed: 'true']" />
 				
 			</table>	

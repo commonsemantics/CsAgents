@@ -39,6 +39,10 @@ class TestsController {
 		render (view:'tests')
 	}
 	
+	// ------------------------
+	//         PERSONS
+	// ------------------------
+	
 	def testShowPerson = {
 		def person = getPerson(params.id);		
 		render (view:'person-show', model:[label:params.testId, description:params.testDescription, person:person]);
@@ -118,9 +122,16 @@ class TestsController {
 			max: params.max, offset: params.offset, controller:'tests', action: 'testListPersons']);
 	}
 	
+	// ------------------------
+	//         SOFTWARE
+	// ------------------------
 	def testShowSoftware = {
 		def software = getSoftware(params.id);
 		render (view:'software-show', model:[label:params.testId, description:params.testDescription, software:software]);
+	}
+	
+	def testShowSoftwareLensNoSoftware = {
+		render (view:'software-show', model:[label:params.testId, description:params.testDescription]);
 	}
 	
 	def testEditSoftware = {

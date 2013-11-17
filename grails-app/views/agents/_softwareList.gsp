@@ -32,7 +32,10 @@
 								<g:hiddenField name="id" value="${softw?.id}" /> 
 								<g:hiddenField name="redirect" value="listUsers" />
 								<span class="button">
-									<g:actionSubmit class="edit"  action="testEditPerson" value="${message(code: 'default.button.edit.account.label', default: 'Edit')}" />
+									<g:actionSubmit class="edit"  action="testShowSoftware" value="${message(code: 'default.button.edit.account.label', default: 'Show')}" />
+								</span>
+								<span class="button">
+									<g:actionSubmit class="edit"  action="testEditSoftware" value="${message(code: 'default.button.edit.account.label', default: 'Edit')}" />
 								</span>
 							</g:form>
 						</div>
