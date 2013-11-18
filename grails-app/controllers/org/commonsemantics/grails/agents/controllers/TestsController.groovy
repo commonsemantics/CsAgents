@@ -122,6 +122,13 @@ class TestsController {
 			max: params.max, offset: params.offset, controller:'tests', action: 'testListPersons']);
 	}
 	
+	private def getPerson(def id) {
+		def person;
+		if(id==null)  person=Person.list()[0];
+		else person = Person.findById(id);
+		person
+	}
+	
 	// ------------------------
 	//         SOFTWARE
 	// ------------------------
@@ -163,13 +170,7 @@ class TestsController {
 		render (view:'software-create', model:[label:params.testId, description:params.testDescription]);
 	}
 	
-	
-	private def getPerson(def id) {
-		def person;
-		if(id==null)  person=Person.list()[0];
-		else person = Person.findById(id);
-		person
-	}
+
 	
 	private def getSoftware(def id) {
 		def software;
