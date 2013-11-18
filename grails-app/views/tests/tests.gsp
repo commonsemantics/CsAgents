@@ -47,7 +47,13 @@
 						testId: '04', 
 						testDescription: 'Persons list',
 						passed: 'true']" />		
-				
+
+				<tr>
+					<th>Test Id</th>
+					<th>Description</th>
+					<th>Version 0.1</th>
+				</tr>	
+			
 				<g:render plugin="cs-agents" template="/tests/testEntry" 
 					model="[
 						action:'testShowSoftware', 
