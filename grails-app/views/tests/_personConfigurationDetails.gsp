@@ -26,8 +26,13 @@
 	<g:each in="${Person.optional}" var="option">
 		<tr>	
 			<td>${option}</td>
-			<td>${grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}</td>
-			<td> org.commonsemantics.grails.persons.model.field.${option}=${grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}</td>
+			<td>
+				${grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}
+				<g:if test="${!grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}">show</g:if>
+			</td>
+			<td> 
+				org.commonsemantics.grails.persons.model.field.${option}=${grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}<g:if test="${!grailsApplication.config.org.commonsemantics.grails.persons.model.field[option]}">show</g:if>
+			</td>
 		</tr>
 	</g:each>
 </table>
