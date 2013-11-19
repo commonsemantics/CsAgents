@@ -8,7 +8,6 @@ Stylesheet
  1) fieldError | background and font color in erroneous text fields
 --%>
 <g:if test="${person!=null}">
-	<g:hiddenField name="id" value="${person?.id}" /> 
 	<table>
 		<tbody>
 			<g:if test="${grailsApplication.config.org.commonsemantics.grails.persons.model.field.title!='hide'}">

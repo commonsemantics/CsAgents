@@ -22,6 +22,7 @@
 			<br/>
 			
 			<g:form method="post" >
+				<g:hiddenField name="id" value="${person?.id}" /> 
 				<g:hiddenField name="testId" value="${label}" /> 
 				<g:hiddenField name="testDescription" value="After ${description}" /> 
 				
