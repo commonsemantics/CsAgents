@@ -35,6 +35,7 @@ class Software extends Agent {
 	Date dateCreated, lastUpdated
 		
 	static mandatory = ['displayName']
+	static optional = ['ver','name','displayName','description']
 	
 	static constraints = {
 		id maxSize: 36
