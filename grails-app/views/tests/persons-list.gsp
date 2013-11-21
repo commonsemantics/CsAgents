@@ -18,15 +18,17 @@
 			</p>
 			<br/>
 			<g:form>
+				<g:hiddenField name="testId" value="${label}" /> 
+				<g:hiddenField name="testDescription" value="After ${description}" /> 
 				Results per page: <g:textField name="max" style="width: 250px;" value="${max}" /><br/>
 				First page: <g:textField name="offset" style="width: 250px;" value="${offset}" /><br/>
 				<g:actionSubmit class="edit"  action="testListPersons" value="${message(code: 'default.button.edit.account.label', default: 'Refresh')}" />
-			</g:form>
-			<br/>
-			<div class="csc-lens-container">
-				<g:render plugin="cs-agents" template="/agents/personsList" />
-			</div>
 			
+				<br/>
+				<div class="csc-lens-container">
+					<g:render plugin="cs-agents" template="/agents/personsList" />
+				</div>	
+			</g:form>
 		</div>
 	</body>
 </html>
