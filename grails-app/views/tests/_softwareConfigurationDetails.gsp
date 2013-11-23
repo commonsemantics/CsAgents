@@ -4,10 +4,13 @@
 <h2>Configurations (External configuration)</h2>
 
 <h3>Mandatory Fields </h3>
-&nbsp;org.commonsemantics.grails.software.model.fields.mandatory = ${AgentsUtils.getSoftwareMandatoryFields(grailsApplication)}<br/><br/>
+&nbsp;org.commonsemantics.grails.software.model.fields.mandatory = ${AgentsUtils.getSoftwareConfigurationMandatoryFields(grailsApplication)}<br/><br/>
+
+<h3>All Resulting Mandatory Fields </h3>
+&nbsp;${AgentsUtils.getSoftwareDynamicMandatoryFields(grailsApplication)}<br/><br/>
 
 <h3>Flexible Fields </h3>
-<g:if test="${AgentsUtils.isStaticSoftwarePropertyExisting('optional')!=null}">
+<g:if test="${AgentsUtils.isSoftwareStaticPropertyExisting('optional')!=null}">
 	&nbsp;${Software.optional}<br/><br/>
 </g:if>
 <g:else>

@@ -22,121 +22,88 @@ package org.commonsemantics.grails.agents.utils
 
 import static java.lang.reflect.Modifier.isStatic
 
+import org.apache.log4j.Logger
 import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
 import org.commonsemantics.grails.agents.model.Person
 import org.commonsemantics.grails.agents.model.Software
+import org.commonsemantics.grails.utils.LoggingUtils
 
 /**
 * @author Paolo Ciccarese <paolo.ciccarese@gmail.com>
 */
 class AgentsUtils {
 
-	static boolean isPersonFieldMandatory(def grailsApplication, def fieldName) {
-		// Mandatory fields by configuration
-		def mandatoryByConfiguration;
-		if(grailsApplication.config.org.commonsemantics.grails.persons.model.fields.mandatory.size()>0) {
-			mandatoryByConfiguration =  Eval.me(grailsApplication.config.org.commonsemantics.grails.persons.model.fields.mandatory);
-			// Mandatory fields by coding
-			if(!Person.constraints[fieldName]?.nullable) mandatoryByConfiguration.add(fieldName);
-		}
-		if(fieldName in Person.mandatory || fieldName in mandatoryByConfiguration) {
-			println 'mandatory: ' + fieldName;
-			return true;
-		}
-		return false;
-	}
+	static Logger log = Logger.getLogger(AgentsUtils.class) // log4j
 	
-	static def getPersonMandatoryFields(def grailsApplication) {
-		def mandatory = Person.mandatory.clone();
+	//-------------------------------------------------------------------------
+	// PERSONS
+	//-------------------------------------------------------------------------
+	static def getPersonConfigurationMandatoryFields(def grailsApplication) {
+		def mandatory =[];
 		if(grailsApplication.config.org.commonsemantics.grails.persons.model.fields.mandatory.size()>0) {
 			mandatory.addAll(Eval.me(grailsApplication.config.org.commonsemantics.grails.persons.model.fields.mandatory));
 		}
 		return mandatory;
 	}
 	
-	static def isStaticPersonPropertyExisting(def name) {
-		Person.class.declaredFields.find {
-			it.name == 'x' && isStatic(it.modifiers)
-		}
+	static def getPersonDynamicMandatoryFields(def grailsApplication) {
+		def mandatory = Person.mandatory.clone();
+		mandatory.addAll(getPersonConfigurationMandatoryFields(grailsApplication));
+		return mandatory;
 	}
-	
-	static def validatePerson(def grailsApplication, def cmd) {
-		boolean validationFailed = false;
-		def mandatory = AgentsUtils.getPersonMandatoryFields(grailsApplication);
-		println mandatory
 
-		if(!cmd.validate()) {
-			println 'validationFailed'
-			validationFailed=true;
-		}
+	static boolean isPersonFieldRequired(def grailsApplication, def fieldName) {
+		// Mandatory fields by dynamic configuration
+		def mandatoryByConfiguration = getPersonDynamicMandatoryFields(grailsApplication)		
+		// Mandatory fields by static coding
+		if(!Person.constraints[fieldName]?.nullable) mandatoryByConfiguration.add(fieldName);
 		
-		def g = new ValidationTagLib()
-		mandatory.each { item ->
-			if(!(cmd[item]!=null && cmd[item].trim().length()>0)) {
-				println 'problem ' + item;
-				//cmd.errors.reject(g.message(code: 'org.commonsemantics.grails.general.message.error.cannotbenull', default: 'Field cannot be null'),
-				//	[item, 'class User'] as Object[],
-				//	'[Property [{0}] of class [{1}] does not match confirmation]')
-				cmd.errors.rejectValue(item,
-					g.message(code: 'default.blank.message', default: 'Field cannot be null'))
-				validationFailed=true;
-			}
-		}
-		validationFailed;
-	}
-	
-	static boolean isSoftwareFieldMandatory(def grailsApplication, def fieldName) {
-		// Mandatory fields by configuration
-		def mandatoryByConfiguration;
-		if(grailsApplication.config.org.commonsemantics.grails.software.model.fields.mandatory.size()>0) {
-			mandatoryByConfiguration =  Eval.me(grailsApplication.config.org.commonsemantics.grails.software.model.fields.mandatory);
-			// Mandatory fields by coding
-			if(!Software.constraints[fieldName]?.nullable) mandatoryByConfiguration.add(fieldName);
-		}
-		
-		if(fieldName in Software.mandatory || fieldName in mandatoryByConfiguration) {
-			println 'mandatory: ' + fieldName;
+		if(fieldName in Person.mandatory || fieldName in mandatoryByConfiguration) {
+			log.debug LoggingUtils.LOG_CONF + ' Person mandatory field: ' + fieldName;
 			return true;
 		}
 		return false;
 	}
-	
-	static def getSoftwareMandatoryFields(def grailsApplication) {
-		def mandatory = Software.mandatory.clone();
+		
+	static def isPersonStaticPropertyExisting(def name) {
+		Person.class.declaredFields.find {
+			it.name == 'x' && isStatic(it.modifiers)
+		}
+	}
+
+	//-------------------------------------------------------------------------
+	// SOFTWARE
+	//-------------------------------------------------------------------------
+	static def getSoftwareConfigurationMandatoryFields(def grailsApplication) {
+		def mandatory =[];
 		if(grailsApplication.config.org.commonsemantics.grails.software.model.fields.mandatory.size()>0) {
-			mandatory.addAll(Eval.me(grailsApplication.config.org.commonsemantics.grails.software.model.fields.mandatory));
+			mandatory =  Eval.me(grailsApplication.config.org.commonsemantics.grails.software.model.fields.mandatory);
 		}
 		return mandatory;
 	}
 	
-	static def isStaticSoftwarePropertyExisting(def name) {
+	static def getSoftwareDynamicMandatoryFields(def grailsApplication) {
+		def mandatory = Software.mandatory.clone();
+		mandatory.addAll(getSoftwareConfigurationMandatoryFields(grailsApplication));
+		return mandatory;
+	}
+
+	static boolean isSoftwareFieldRequired(def grailsApplication, def fieldName) {
+		// Mandatory fields by dynamic configuration
+		def mandatoryByConfiguration = getSoftwareDynamicMandatoryFields(grailsApplication)
+		// Mandatory fields by static coding
+		if(!Software.constraints[fieldName]?.nullable) mandatoryByConfiguration.add(fieldName);
+		
+		if(fieldName in Software.mandatory || fieldName in mandatoryByConfiguration) {
+			log.debug LoggingUtils.LOG_CONF + ' Software mandatory field: ' + fieldName;
+			return true;
+		}
+		return false;
+	}
+		
+	static def isSoftwareStaticPropertyExisting(def name) {
 		Software.class.declaredFields.find {
 			it.name == 'x' && isStatic(it.modifiers)
 		}
-	}
-	
-	static def validateSoftware(def grailsApplication, def cmd) {
-		boolean validationFailed = false;
-		def mandatory = AgentsUtils.getSoftwareMandatoryFields(grailsApplication);
-		println mandatory
-
-		if(!cmd.validate()) {
-			println 'validationFailed'
-			validationFailed=true;
-		}
-		
-		def g = new ValidationTagLib()
-		mandatory.each { item ->
-			if(!(cmd[item]!=null && cmd[item].trim().length()>0)) {
-				println 'problem ' + item;
-				//cmd.errors.reject(g.message(code: 'org.commonsemantics.grails.general.message.error.cannotbenull', default: 'Field cannot be null'),
-				//	[item, 'class User'] as Object[],
-				//	'[Property [{0}] of class [{1}] does not match confirmation]')
-				cmd.errors.rejectValue(item,
-					g.message(code: 'default.blank.message', default: 'Field cannot be null'))
-				validationFailed=true;
-			}
-		}
-		validationFailed;
 	}
 }

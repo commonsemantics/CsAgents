@@ -33,37 +33,53 @@ import org.commonsemantics.grails.agents.utils.AgentsUtils
  */
 class TestsController {
 
+	def agentsService;
+	
 	static defaultAction = "tests"
 	
 	def tests = {
 		render (view:'tests')
 	}
 	
-	// ------------------------
-	//         PERSONS
-	// ------------------------
-	
+	// ------------------------------------------------------------------------
+	//  PERSONS
+	// ------------------------------------------------------------------------
 	def testShowPerson = {
-		def person = getPerson(params.id);		
+		log.debug("[TEST] show-person " + (params.id?("(id:" + params.id + ")"):"(No id specified)"));
+		def person = getPerson('show-person', params.id);			
 		render (view:'person-show', model:[label:params.testId, description:params.testDescription, person:person]);
 	}
 	
-	def testShowPersonLensNoPerson = {
-		render (view:'person-show', model:[label:params.testId, description:params.testDescription]);
-	}
-
-	def testEditPerson = {
-		def person = getPerson(params.id);		
-		render (view:'person-edit', model:[label:params.testId, description:params.testDescription, person:person]);
+	private def getPerson(def methodName, def id) {
+		if(id==null)  {
+			log.debug(	"[TEST] get-person (No id specified, picked a random person)");
+			return Person.list()[0];
+		} else {
+			def person = Person.findById(id);
+			if(person) log.debug("[TEST] " + methodName + " " + person + " - " + person.displayName);
+			else log.warn("[TEST] " + methodName + " (No person found with id " + params.id + ")");
+			return person;
+		}
 	}
 	
+	def testShowPersonLensNoPerson = {
+		log.warn("[TEST] show-person (No person specified)");	
+		render (view:'person-show', model:[label:params.testId, description:params.testDescription]);
+	}
+	
+	def testEditPerson = {
+		log.debug("[TEST] edit-person " + (params.id?("(id:" + params.id + ")"):"(No id specified)"));
+		def person = getPerson('edit-person', params.id);
+		render (view:'person-edit', model:[label:params.testId, description:params.testDescription, person:person]);
+	}
+
 	def testUpdatePerson = { PersonEditCommand cmd ->
-		def validationFailed = AgentsUtils.validatePerson(grailsApplication, cmd);
+		def validationFailed = agentsService.validatePerson(grailsApplication, cmd);
 		if (validationFailed) {
-			println 'problems ' + cmd.errors;
+			log.error("[TEST] While Updating Person " + cmd.errors)
 		} else {
 			def person = Person.findById(params.id);
-			println person
+			log.debug("[TEST] Updating Person " + person)
 			if(person!=null) {
 				person.title = params.title;
 				person.firstName = params.firstName;
@@ -82,16 +98,17 @@ class TestsController {
 	}
 	
 	def testCreatePerson = {
+		log.debug("[TEST] create-person")
 		render (view:'person-create', model:[label:params.testId, description:params.testDescription]);
 	}
 	
 	def testSavePerson = {PersonCreateCommand cmd ->
-		println 'createUser'
+		log.debug("[TEST] Creating person")
 
 		// Validate against custom rules
-		def validationFailed = AgentsUtils.validatePerson(grailsApplication, cmd);
+		def validationFailed = agentsService.validatePerson(grailsApplication, cmd);
 		if (validationFailed) {
-			println 'problems ' + cmd.errors;
+			log.error("[TEST] While Creating Person " + cmd.errors)
 			render (view:'person-create', model:[label:params.testId, description:params.testDescription, person:cmd]);
 		} else {
 			def person = new Person();
@@ -105,8 +122,7 @@ class TestsController {
 			person.email = params.email;
 			
 			if(!person.save(flush: true)) {
-				println 'problems ' + person.errors;
-				
+				log.error("[TEST] While Saving new Person " + person.errors)			
 				render (view:'person-create', model:[label:params.testId, description:params.testDescription, person:person]);
 				return
 			} else {
@@ -117,42 +133,51 @@ class TestsController {
 	}
 	
 	def testListPersons = {
+		log.debug("[TEST] list-person " + params.max + " " + params.offset)
 		//params.max = 2;
 		render (view:'persons-list', model:[label:params.testId, description:params.testDescription, persons:Person.list(params), personsTotal: Person.count(), 
 			max: params.max, offset: params.offset, controller:'tests', action: 'testListPersons']);
-	}
-	
-	private def getPerson(def id) {
-		def person;
-		if(id==null)  person=Person.list()[0];
-		else person = Person.findById(id);
-		person
 	}
 	
 	// ------------------------
 	//         SOFTWARE
 	// ------------------------
 	def testShowSoftware = {
-		def software = getSoftware(params.id);
+		log.debug("[TEST] show-software " + (params.id?("(id:" + params.id + ")"):"(No id specified)"));
+		def software = getSoftware('show-software', params.id);
 		render (view:'software-show', model:[label:params.testId, description:params.testDescription, software:software]);
 	}
-	
+
+	private def getSoftware(def methodName, def id) {
+		if(id==null)  {
+			log.debug(	"[TEST] get-person (No id specified, picked a random person)");
+			return Software.list()[0];
+		} else {
+			def software = Software.findById(id);
+			if(software) log.debug("[TEST] " + methodName + " " + person + " - " + software.displayName);
+			else log.warn("[TEST] " + methodName + " (No software found with id " + params.id + ")");
+			return software;
+		}
+	}
+		
 	def testShowSoftwareLensNoSoftware = {
+		log.warn("[TEST] show-software (No person specified)");
 		render (view:'software-show', model:[label:params.testId, description:params.testDescription]);
 	}
 	
 	def testEditSoftware = {
-		def software = getSoftware(params.id);
+		log.debug("[TEST] edit-software " + (params.id?("(id:" + params.id + ")"):"(No id specified)"));
+		def software = getSoftware('edit-software', params.id);
 		render (view:'software-edit', model:[label:params.testId, description:params.testDescription, software:software]);
 	}
 	
 	def testUpdateSoftware = { SoftwareEditCommand cmd ->
-		def validationFailed = AgentsUtils.validateSoftware(grailsApplication, cmd);
+		def validationFailed = agentsService.validateSoftware(cmd);
 		if (validationFailed) {
-			println 'problems ' + cmd.errors;
+			log.error("[TEST] While Updating Software " + cmd.errors)
 		} else {
 			def software = Software.findById(params.id);
-			println software
+			log.debug("[TEST] Updating Software " + software)
 			if(software!=null) {
 				software.ver = params.ver;
 				software.name = params.name;
@@ -167,25 +192,17 @@ class TestsController {
 	}
 	
 	def testCreateSoftware = {
+		log.debug("[TEST] create-software")
 		render (view:'software-create', model:[label:params.testId, description:params.testDescription]);
 	}
-	
 
-	
-	private def getSoftware(def id) {
-		def software;
-		if(id==null)  software=Software.list()[0];
-		else software = Software.findById(id);
-		software
-	}
-	
 	def testSaveSoftware = {SoftwareCreateCommand cmd ->
-		println 'createSoftware'
+		log.debug("[TEST] Creating software")
 
 		// Validate against custom rules
-		def validationFailed = AgentsUtils.validateSoftware(grailsApplication, cmd);
+		def validationFailed = agentsService.validateSoftware(cmd);
 		if (validationFailed) {
-			println 'problems ' + cmd.errors;
+			log.error("[TEST] While Creating Software " + cmd.errors)
 			render (view:'software-create', model:[label:params.testId, description:params.testDescription, person:cmd]);
 		} else {
 			def software = new Software();
@@ -195,8 +212,7 @@ class TestsController {
 			software.displayName = params.displayName;
 			
 			if(!software.save(flush: true)) {
-				println 'problems ' + software.errors;
-				
+				log.error("[TEST] While Saving new Software " + software.errors)				
 				render (view:'software-create', model:[label:params.testId, description:params.testDescription, software:software]);
 				return
 			} else {
@@ -207,8 +223,10 @@ class TestsController {
 	}
 	
 	def testListSoftware = {
+		log.debug("[TEST] list-software " + params.max + " " + params.offset)
 		//params.max = 1;
 		render (view:'software-list', model:[label:params.testId, description:params.testDescription, software:Software.list(params), softwareTotal: Software.count(), 
 			max: params.max, offset: params.offset, controller:'tests', action: 'testListSoftware']);
 	}
+
 }

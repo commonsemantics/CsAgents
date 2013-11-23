@@ -7,7 +7,7 @@
 			<g:render plugin="cs-agents" template="/agents/agentPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.title',
 				messageDefault:'Title',
-				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'title'),
+				mandatory:AgentsUtils.isPersonFieldRequired(grailsApplication, 'title'),
 				bean: person,
 				variable: 'title',
 				value: person?.title,
@@ -18,7 +18,7 @@
 			<g:render plugin="cs-agents" template="/agents/agentPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.firstName',
 				messageDefault:'First name',
-				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'firstName'),
+				mandatory:AgentsUtils.isPersonFieldRequired(grailsApplication, 'firstName'),
 				bean: person,
 				variable: 'firstName',
 				value: person?.firstName,
@@ -29,7 +29,7 @@
 			<g:render plugin="cs-agents" template="/agents/agentPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.middleName',
 				messageDefault:'Middle name',
-				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'middleName'),
+				mandatory:AgentsUtils.isPersonFieldRequired(grailsApplication, 'middleName'),
 				bean: person,
 				variable: 'middleName',
 				value: person?.middleName,
@@ -40,7 +40,7 @@
 			<g:render plugin="cs-agents" template="/agents/agentPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.lastName',
 				messageDefault:'Last name',
-				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'lastName'),
+				mandatory:AgentsUtils.isPersonFieldRequired(grailsApplication, 'lastName'),
 				bean: person,
 				variable: 'lastName',
 				value: person?.lastName,
@@ -51,7 +51,7 @@
 			<g:render plugin="cs-agents" template="/agents/agentPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.displayName',
 				messageDefault:'Display name',
-				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'displayName'),
+				mandatory:AgentsUtils.isPersonFieldRequired(grailsApplication, 'displayName'),
 				bean: person,
 				variable: 'displayName',
 				value: person?.displayName,
@@ -62,7 +62,7 @@
 			<g:render plugin="cs-agents" template="/agents/agentPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.email',
 				messageDefault:'Email',
-				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'email'),
+				mandatory:AgentsUtils.isPersonFieldRequired(grailsApplication, 'email'),
 				bean: person,
 				variable: 'email',
 				value: person?.email,
@@ -73,7 +73,7 @@
 			<g:render plugin="cs-agents" template="/agents/agentPropertyEntry" model="[
 				messageCode:'org.commonsemantics.grails.persons.model.field.affiliation',
 				messageDefault:'Affiliation',
-				mandatory:AgentsUtils.isPersonFieldMandatory(grailsApplication, 'affiliation'),
+				mandatory:AgentsUtils.isPersonFieldRequired(grailsApplication, 'affiliation'),
 				bean: person,
 				variable: 'affiliation',
 				value: person?.affiliation,
