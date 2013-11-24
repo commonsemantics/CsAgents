@@ -41,14 +41,6 @@ Stylesheet
 						</td>
 					</tr>
 				</g:if>
-				<tr>
-					<td valign="top"  align="left">
-						<g:message code="org.commonsemantics.grails.software.model.field.displayName" default="Display name"/>
-					</td>
-					<td valign="top" align="left">
-						${software?.displayName}
-					</td>
-				</tr>
 				<g:if test="${grailsApplication.config.org.commonsemantics.grails.software.model.field.description!='hide'}">
 					<tr>
 						<td valign="top"  align="left">
@@ -60,6 +52,14 @@ Stylesheet
 						</td>
 					</tr>
 				</g:if>
+				<tr>
+					<td valign="top"  align="left">
+						<g:message code="org.commonsemantics.grails.software.model.field.displayName" default="Display name"/>
+					</td>
+					<td valign="top" align="left">
+						${software?.displayName}
+					</td>
+				</tr>				
 		</table>
 	</g:if>
 	<g:else>

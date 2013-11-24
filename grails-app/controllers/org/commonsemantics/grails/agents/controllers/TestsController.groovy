@@ -74,7 +74,7 @@ class TestsController {
 	}
 
 	def testUpdatePerson = { PersonEditCommand cmd ->
-		def validationFailed = agentsService.validatePerson(grailsApplication, cmd);
+		def validationFailed = agentsService.validatePerson(cmd);
 		if (validationFailed) {
 			log.error("[TEST] While Updating Person " + cmd.errors)
 		} else {
@@ -106,7 +106,7 @@ class TestsController {
 		log.debug("[TEST] Creating person")
 
 		// Validate against custom rules
-		def validationFailed = agentsService.validatePerson(grailsApplication, cmd);
+		def validationFailed = agentsService.validatePerson(cmd);
 		if (validationFailed) {
 			log.error("[TEST] While Creating Person " + cmd.errors)
 			render (view:'person-create', model:[label:params.testId, description:params.testDescription, person:cmd]);
@@ -133,7 +133,7 @@ class TestsController {
 	}
 	
 	def testListPersons = {
-		log.debug("[TEST] list-person " + params.max + " " + params.offset)
+		log.debug("[TEST] list-person max:" + params.max + " offset:" + params.offset)
 		//params.max = 2;
 		render (view:'persons-list', model:[label:params.testId, description:params.testDescription, persons:Person.list(params), personsTotal: Person.count(), 
 			max: params.max, offset: params.offset, controller:'tests', action: 'testListPersons']);
@@ -154,7 +154,7 @@ class TestsController {
 			return Software.list()[0];
 		} else {
 			def software = Software.findById(id);
-			if(software) log.debug("[TEST] " + methodName + " " + person + " - " + software.displayName);
+			if(software) log.debug("[TEST] " + methodName + " " + software + " - " + software.displayName);
 			else log.warn("[TEST] " + methodName + " (No software found with id " + params.id + ")");
 			return software;
 		}
@@ -223,7 +223,7 @@ class TestsController {
 	}
 	
 	def testListSoftware = {
-		log.debug("[TEST] list-software " + params.max + " " + params.offset)
+		log.debug("[TEST] list-software max:" + params.max + " offset:" + params.offset)
 		//params.max = 1;
 		render (view:'software-list', model:[label:params.testId, description:params.testDescription, software:Software.list(params), softwareTotal: Software.count(), 
 			max: params.max, offset: params.offset, controller:'tests', action: 'testListSoftware']);
