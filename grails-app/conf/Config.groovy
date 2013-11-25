@@ -30,6 +30,8 @@ log4j = {
 
     warn   'org.mortbay.log'
 	
+	info   'grails.app' 									// Necessary for Bootstrap logging
+	
 	debug  'grails.app.controllers.org.commonsemantics.grails.agents.controllers.TestsController',
 		   'grails.app.services.org.commonsemantics.grails.agents.AgentsService',
 		   'org.commonsemantics.grails.agents.utils'

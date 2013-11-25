@@ -58,7 +58,7 @@ class AgentsUtils {
 		// Mandatory fields by static coding
 		if(!Person.constraints[fieldName]?.nullable) mandatoryByConfiguration.add(fieldName);
 		
-		if(fieldName in Person.mandatory || fieldName in mandatoryByConfiguration) {
+		if((isPersonStaticPropertyExisting('mandatory') && fieldName in Person.mandatory) || fieldName in mandatoryByConfiguration) {
 			log.debug LoggingUtils.LOG_CONF + ' Person mandatory field: ' + fieldName;
 			return true;
 		}
