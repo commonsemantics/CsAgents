@@ -27,7 +27,7 @@
 				<br/>
 				<div class="buttons">
 					<span class="button">
-						<g:actionSubmit class="save" action="testSaveSoftware" value="${message(code: 'org.commonsemantics.grails.users.profile.create', default: 'Create Software')}" />
+						<g:actionSubmit class="save" action="saveSoftware" value="${message(code: 'org.commonsemantics.grails.users.profile.create', default: 'Create Software')}" />
 					</span>
 				</div>
 			</g:form>

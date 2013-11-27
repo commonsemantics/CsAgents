@@ -44,7 +44,7 @@ class TestsController {
 	// ------------------------------------------------------------------------
 	//  PERSONS
 	// ------------------------------------------------------------------------
-	def testShowPerson = {
+	def showPerson = {
 		log.debug("[TEST] show-person " + (params.id?("(id:" + params.id + ")"):"(No id specified)"));
 		def person = getPerson('show-person', params.id);			
 		render (view:'person-show', model:[label:params.testId, description:params.testDescription, person:person]);
@@ -62,18 +62,18 @@ class TestsController {
 		}
 	}
 	
-	def testShowPersonLensNoPerson = {
+	def showPersonLensNoPerson = {
 		log.warn("[TEST] show-person (No person specified)");	
 		render (view:'person-show', model:[label:params.testId, description:params.testDescription]);
 	}
 	
-	def testEditPerson = {
+	def editPerson = {
 		log.debug("[TEST] edit-person " + (params.id?("(id:" + params.id + ")"):"(No id specified)"));
 		def person = getPerson('edit-person', params.id);
 		render (view:'person-edit', model:[label:params.testId, description:params.testDescription, person:person]);
 	}
 
-	def testUpdatePerson = { PersonEditCommand cmd ->
+	def updatePerson = { PersonEditCommand cmd ->
 		def validationFailed = agentsService.validatePerson(cmd);
 		if (validationFailed) {
 			log.error("[TEST] While Updating Person " + cmd.errors)
@@ -97,12 +97,12 @@ class TestsController {
 		render (view:'person-edit', model:[label:params.testId, description:params.testDescription, person:cmd]);
 	}
 	
-	def testCreatePerson = {
+	def createPerson = {
 		log.debug("[TEST] create-person")
 		render (view:'person-create', model:[label:params.testId, description:params.testDescription]);
 	}
 	
-	def testSavePerson = {PersonCreateCommand cmd ->
+	def savePerson = {PersonCreateCommand cmd ->
 		log.debug("[TEST] Creating person")
 
 		// Validate against custom rules
@@ -132,17 +132,17 @@ class TestsController {
 		}
 	}
 	
-	def testListPersons = {
+	def listPersons = {
 		log.debug("[TEST] list-person max:" + params.max + " offset:" + params.offset)
 		//params.max = 2;
 		render (view:'persons-list', model:[label:params.testId, description:params.testDescription, persons:Person.list(params), personsTotal: Person.count(), 
-			max: params.max, offset: params.offset, controller:'tests', action: 'testListPersons']);
+			max: params.max, offset: params.offset, controller:'tests', action: 'listPersons']);
 	}
 	
 	// ------------------------
 	//         SOFTWARE
 	// ------------------------
-	def testShowSoftware = {
+	def showSoftware = {
 		log.debug("[TEST] show-software " + (params.id?("(id:" + params.id + ")"):"(No id specified)"));
 		def software = getSoftware('show-software', params.id);
 		render (view:'software-show', model:[label:params.testId, description:params.testDescription, software:software]);
@@ -160,18 +160,18 @@ class TestsController {
 		}
 	}
 		
-	def testShowSoftwareLensNoSoftware = {
+	def showSoftwareLensNoSoftware = {
 		log.warn("[TEST] show-software (No person specified)");
 		render (view:'software-show', model:[label:params.testId, description:params.testDescription]);
 	}
 	
-	def testEditSoftware = {
+	def editSoftware = {
 		log.debug("[TEST] edit-software " + (params.id?("(id:" + params.id + ")"):"(No id specified)"));
 		def software = getSoftware('edit-software', params.id);
 		render (view:'software-edit', model:[label:params.testId, description:params.testDescription, software:software]);
 	}
 	
-	def testUpdateSoftware = { SoftwareEditCommand cmd ->
+	def updateSoftware = { SoftwareEditCommand cmd ->
 		def validationFailed = agentsService.validateSoftware(cmd);
 		if (validationFailed) {
 			log.error("[TEST] While Updating Software " + cmd.errors)
@@ -191,12 +191,12 @@ class TestsController {
 		render (view:'software-edit', model:[label:params.testId, description:params.testDescription, software:cmd]);
 	}
 	
-	def testCreateSoftware = {
+	def createSoftware = {
 		log.debug("[TEST] create-software")
 		render (view:'software-create', model:[label:params.testId, description:params.testDescription]);
 	}
 
-	def testSaveSoftware = {SoftwareCreateCommand cmd ->
+	def saveSoftware = {SoftwareCreateCommand cmd ->
 		log.debug("[TEST] Creating software")
 
 		// Validate against custom rules
@@ -222,11 +222,11 @@ class TestsController {
 		}
 	}
 	
-	def testListSoftware = {
+	def listSoftware = {
 		log.debug("[TEST] list-software max:" + params.max + " offset:" + params.offset)
 		//params.max = 1;
 		render (view:'software-list', model:[label:params.testId, description:params.testDescription, software:Software.list(params), softwareTotal: Software.count(), 
-			max: params.max, offset: params.offset, controller:'tests', action: 'testListSoftware']);
+			max: params.max, offset: params.offset, controller:'tests', action: 'listSoftware']);
 	}
 
 }

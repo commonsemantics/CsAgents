@@ -30,10 +30,10 @@
 								<g:hiddenField name="id" value="${person?.id}" /> 
 								<g:hiddenField name="redirect" value="listUsers" />
 								<span class="button">
-									<g:actionSubmit class="edit"  action="testShowPerson" value="${message(code: 'default.button.edit.account.label', default: 'Show')}" />
+									<g:actionSubmit class="edit"  action="showPerson" value="${message(code: 'default.button.edit.account.label', default: 'Show')}" />
 								</span>
 								<span class="button">
-									<g:actionSubmit class="edit"  action="testEditPerson" value="${message(code: 'default.button.edit.account.label', default: 'Edit')}" />
+									<g:actionSubmit class="edit"  action="editPerson" value="${message(code: 'default.button.edit.account.label', default: 'Edit')}" />
 								</span>
 							</g:form>
 						</div>

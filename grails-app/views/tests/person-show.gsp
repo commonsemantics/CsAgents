@@ -33,10 +33,10 @@
 				<br/>
 				<div class="buttons">
 					<span class="button">
-						<g:actionSubmit class="save" action="testEditPerson" value="${message(code: 'org.commonsemantics.grails.users.profile.submit', default: 'Edit Profile')}" />
+						<g:actionSubmit class="save" action="editPerson" value="${message(code: 'org.commonsemantics.grails.users.profile.submit', default: 'Edit Profile')}" />
 					</span>
 					<span class="button">
-						<g:actionSubmit class="save" action="testListPersons" value="${message(code: 'org.commonsemantics.grails.users.profile.submit', default: 'List Profiles')}" />
+						<g:actionSubmit class="save" action="listPersons" value="${message(code: 'org.commonsemantics.grails.users.profile.submit', default: 'List Profiles')}" />
 					</span>
 				</div>
 			</g:form>
