@@ -21,9 +21,8 @@
 package org.commonsemantics.grails.agents
 
 import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
-import org.commonsemantics.grails.agents.model.Person
+import org.commonsemantics.grails.agents.model.AgentUri
 import org.commonsemantics.grails.agents.utils.AgentsUtils
-import org.commonsemantics.grails.utils.LoggingUtils
 
 /**
  * @author Paolo Ciccarese <paolo.ciccarese@gmail.com>
@@ -79,5 +78,12 @@ class AgentsService {
 			}
 		}
 		validationFailed;
+	}
+	
+	def getAgentIdentifiers(def agent) {
+		def agentUris = []
+		def au = AgentUri.findAllByAgent(agent);
+		au.each { agentUris.add(it.uri)}
+		agentUris
 	}
 }
