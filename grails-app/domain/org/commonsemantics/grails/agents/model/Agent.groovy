@@ -30,7 +30,10 @@ abstract class Agent {
 	String id
 	String displayName
 	
+	Set uris = new HashSet()
+	
 	static mandatory = ['displayName']
+	static hasMany = [uris: String]
 	
 	static constraints = {
 		id maxSize: 36
@@ -39,5 +42,7 @@ abstract class Agent {
 	
 	static mapping = {
 		id generator:'uuid', sqlType: "varchar(36)"
+		
+		uris(nullable: true)
 	}
 }

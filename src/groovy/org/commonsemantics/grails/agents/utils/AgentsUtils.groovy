@@ -23,7 +23,7 @@ package org.commonsemantics.grails.agents.utils
 import static java.lang.reflect.Modifier.isStatic
 
 import org.apache.log4j.Logger
-import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
+import org.commonsemantics.grails.agents.model.AgentUri
 import org.commonsemantics.grails.agents.model.Person
 import org.commonsemantics.grails.agents.model.Software
 import org.commonsemantics.grails.utils.LoggingUtils
@@ -34,6 +34,14 @@ import org.commonsemantics.grails.utils.LoggingUtils
 class AgentsUtils {
 
 	static Logger log = Logger.getLogger(AgentsUtils.class) // log4j
+	
+	static def getAgentUris(def agent) {
+		def agentUris = [];
+		def ur = AgentUri.findAllByAgent(agent)
+		ur.each { agentUris.add(it.uri)}
+		log.debug("Agent " + agent + " uris " + agentUris);
+		return agentUris
+	}
 	
 	//-------------------------------------------------------------------------
 	// PERSONS
